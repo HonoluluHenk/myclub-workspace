@@ -85,6 +85,37 @@
           }
         }
       }
+    },
+    "scraper": {
+      "projectType": "library",
+      "root": "libs/scraper",
+      "sourceRoot": "libs/scraper/src",
+      "prefix": "myclub",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/scraper/tsconfig.lib.json",
+              "libs/scraper/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/scraper/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/scraper/jest.config.js",
+            "tsConfig": "libs/scraper/tsconfig.spec.json",
+            "setupFile": "libs/scraper/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

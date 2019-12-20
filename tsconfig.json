@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@myclub/myclub-shared": ["libs/myclub-shared/src/index.ts"]
+      "@myclub/myclub-shared": ["libs/myclub-shared/src/index.ts"],
+      "@myclub/scraper": ["libs/scraper/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

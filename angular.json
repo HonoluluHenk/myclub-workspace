@@ -32,20 +32,20 @@
         }
       }
     },
-    "scraper": {
-      "root": "apps/scraper",
-      "sourceRoot": "apps/scraper/src",
+    "scraper-poc": {
+      "root": "apps/scraper-poc",
+      "sourceRoot": "apps/scraper-poc/src",
       "projectType": "application",
-      "prefix": "scraper",
+      "prefix": "scraper-poc",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "outputPath": "dist/apps/scraper",
-            "main": "apps/scraper/src/main.ts",
-            "tsConfig": "apps/scraper/tsconfig.app.json",
-            "assets": ["apps/scraper/src/assets"]
+            "outputPath": "dist/apps/scraper-poc",
+            "main": "apps/scraper-poc/src/main.ts",
+            "tsConfig": "apps/scraper-poc/tsconfig.app.json",
+            "assets": ["apps/scraper-poc/src/assets"]
           },
           "configurations": {
             "production": {
@@ -54,8 +54,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "apps/scraper/src/environments/environment.ts",
-                  "with": "apps/scraper/src/environments/environment.prod.ts"
+                  "replace": "apps/scraper-poc/src/environments/environment.ts",
+                  "with": "apps/scraper-poc/src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -64,24 +64,24 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "scraper:build"
+            "buildTarget": "scraper-poc:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/scraper/tsconfig.app.json",
-              "apps/scraper/tsconfig.spec.json"
+              "apps/scraper-poc/tsconfig.app.json",
+              "apps/scraper-poc/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/scraper/**"]
+            "exclude": ["**/node_modules/**", "!apps/scraper-poc/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/scraper/jest.config.js",
-            "tsConfig": "apps/scraper/tsconfig.spec.json"
+            "jestConfig": "apps/scraper-poc/jest.config.js",
+            "tsConfig": "apps/scraper-poc/tsconfig.spec.json"
           }
         }
       }
@@ -102,5 +102,5 @@
       "changeDetection": "OnPush"
     }
   },
-  "defaultProject": "scraper"
+  "defaultProject": "scraper-poc"
 }

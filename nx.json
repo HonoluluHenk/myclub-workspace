@@ -11,8 +11,8 @@
     "myclub-shared": {
       "tags": []
     },
-    "scraper": {
-      "tags": ["scraper"]
+    "scraper-poc": {
+      "tags": ["scraper-poc"]
     }
   }
 }

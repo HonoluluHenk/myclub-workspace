@@ -13,7 +13,7 @@ const path = require("path");
   const scraper = new ClubScheduleScraper();
 
   let clubCalendar: ScrapedClubSchedule[];
-  if (false) {
+  if (true) {
     // do actual web requests: Ostermundigen, 19/20
     // noinspection UnreachableCodeJS
     clubCalendar = await scraper.scrape(33282, "13-2870");

@@ -1,0 +1,82 @@
+/* nu Liga print version - update 08.12.2012 */
+/****************************************/
+#header-navigation, #navigation, #user, #tabs, #breadcrumb, #footer-navigation, #user, #sub-navigation, #tabs-external, #date, #DruckbareFassung, #banner-top, #banner-skyscraper, #ads-top, #banner-super, .banner  { display:none; }
+/****************************************/
+#page { margin:4mm; }
+#header { }
+#content { width:165mm; }
+#content-col1 { float:left; width:90mm; padding-left:0mm; padding-right:4mm; } 
+#content-col2 { float:right; width:60mm;   }
+#content-row1 { clear:both; padding-left:0mm; }
+#content-row2  { clear:both; padding-left:0mm; }
+#footer { clear:both; padding-top:4mm; width:165mm; }
+/****************************************/
+body,td,th,div,p,ul,ol,a,form,input,textarea,h1,h2,h3,h4,h5,h6 { font-family: Arial, Helvetica, sans-serif; font-size:3.3mm; }
+body { background:#FFFFFF; }
+a { text-decoration: underline; color:#999999;}
+fieldset { border:1px solid #000000!important; padding:3mm!important; margin:3mm!important;  }
+fieldset.short-print {
+   border-top:1px solid #000000!important; 
+   border-left:0px solid #000000!important; 
+   border-right:0px solid #000000!important; 
+   border-bottom:0px solid #000000!important; 
+   padding:3mm!important; 
+   margin:3mm!important;
+}
+fieldset.short-print legend {
+	font-weight:bold;
+	color:#000000;
+}
+
+
+.result-set caption { margin-top:16px; margin-bottom:-8px; }
+.result-set th {  border-bottom:1px solid #999999; font-size:85%; font-weight:normal; padding:0 8px 0 0px; }
+.result-set td { border-bottom:1px solid #999999; border-right:1px none; padding:0 8px 0 0px; }
+.result-set {  margin:16px 0 16px 0; width:100%; }
+.result-set tr.last-row td { border-style:none; padding-top:2px; }
+.result-set tr.result-set-noline td { border-style:none; padding-top:1px; }
+.result-set tr.result-set-comment td { padding-top:4px; padding-bottom:2px; background-color:#efefef; }
+.result-set tr.result-set-disabled td  { background-color:#efefef; color:#999999; }
+.result-set tr.result-set-disabled a  { color:#999999; }
+.result-set tr.table-split td  { padding-top:8px; }
+.result-set ul { padding:0; margin:0;  }
+.result-set li { padding:0 0 0 1.9em; margin:0; list-style-type:none; text-indent:-1.9em; }
+
+.matrix caption { margin-top:16px; margin-bottom:-8px; }
+.matrix th {  border-right:1px solid #999999; font-weight:bold; padding:0; background-color:#efefef; }
+.matrix td { border-bottom:1px solid #999999; border-right:1px solid #999999;  padding:0; }
+.matrix hr { color:#999999; border-color:#999999; }
+.matrix {  margin:16px 0 16px 0; width:100%; border-left:1px solid #999999; /* border-top:1px solid #999999; */ font-size:90%;  }
+.matrix h2 { background-color:#efefef; padding:0 4px 0 4px; white-space:nowrap; border-bottom:1px solid #999999; border-top:1px solid #999999;}
+.matrix ul { padding:0; margin:0; list-style-type:none; margin-bottom:1em;}
+.matrix li { padding:0 4px 0 4px; margin:0; white-space:nowrap;  }
+
+/* Turnier Gegner Baumdarstellung */
+.table-tree { margin:16px 0 16px 0px; }
+.table-tree th { padding:0 8px 0 0px; }
+.table-tree td { padding:0 4px 0 4px; }
+
+.line-bo { border-bottom:1px solid #000000; }
+.line-bore { border-bottom:1px solid #000000; border-right:1px solid #000000; }
+.line-re { border-right:1px solid #000000; }
+
+/* Turnier Gegner Matrixdarstellung */
+.table-matrix { margin:16px 0 16px 0px; border-collapse:collapse; }
+.table-matrix th { padding:0 4px 0 1px; font-weight:normal; border-bottom:1px solid #cccccc; border-right:1px solid #cccccc }
+.table-matrix td { padding:0 1px 0 1px; border:1px solid #cccccc; background-color:#efefef; text-align:center; vertical-align:middle; }
+.table-matrix td.disabled { background-color:#ffffff; }
+.table-matrix td.hidden, .table-matrix th.hidden { visibility:hidden; border:0; background-color:transparent; }
+.table-matrix tr.table-split td, .table-matrix tr.table-split th   { background-color:transparent; border:0; height:3em; }
+.table-matrix abbr[title] { font-style: normal; cursor: help; background-color:#FFCC00; padding:1px; color:#000000; border-bottom: 0px; }
+
+h1, h2, h3, h4, h5, h6 { padding:0; margin:0; }
+h1 { padding-bottom:16px; }
+p { margin:0; padding-bottom:8px; }
+
+.no-print, .no-print * {
+    display: none !important;
+}
+
+.content-tabs {
+	display:none;
+}

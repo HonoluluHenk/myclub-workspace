@@ -1,0 +1,205 @@
+@CHARSET "UTF-8";
+
+.ref-ob_error, .ref-ob_ok, .ref-ob_warning {
+	border-radius: 5px;
+	padding: 1px 4px;
+}
+
+.ref-ob_error {
+	background-color: rgba(255, 0, 0, 0.25);
+}
+
+.ref-ob_ok {
+	background-color: rgba(0, 255, 0, 0.25);
+}
+
+.ref-ob_warning {
+	background-color: rgba(255, 255, 0, 0.25);
+}
+
+
+
+/* Info-Box zur Begegnung */
+
+.ref-ob-mtg-info {
+	width: 100%;
+}
+
+.ref-ob-mtg-info h1 {
+	font-size: 120%;
+	margin: 4px 0px;
+	padding: 0px;
+}
+
+.ref-ob-mtg-info h2 {
+	font-weight: normal;
+}
+
+.ref-ob-mtg-info__table {
+	width: 100%;
+}
+
+.ref-ob-mtg-info__table__cell {
+	border: none !important;
+	font-size: 110% !important;
+	padding: 8px 0px !important;
+	width: 50% !important;
+}
+
+.ref-ob-mtg-info__table__cell label {
+	font-size: 80%;
+}
+
+
+
+/* Kriterien */
+
+.ref-ob__rating {
+	float: none !important;
+	margin-bottom: 16px;
+	margin-left: 8px;
+}
+
+.ref-ob__rating div {
+	float: none !important;
+}
+
+.ref-ob__rating-criteria, .ref-ob__rating-detail {
+	width: 100%;
+}
+
+.ref-ob__rating-detail {
+	margin-top: 8px;
+}
+
+.ref-ob__rating table, .ref-ob__rating tr, .ref-ob__rating td, .ref-ob__rating th, .ref-ob__rating td {
+	border: 0px;
+}
+
+.ref-ob__rating-criteria__criteria-table {
+	margin-left: auto;
+	margin-right: 0px;
+	width: auto;
+}
+
+.ref-ob__rating-criteria__criteria-table td {
+	line-height: 23px;
+}
+
+.ref-ob__rating-criteria__criteria-table__criteria-td {
+	width: 40%;
+}
+
+.ref-ob__rating-criteria__criteria-table__points-header-left {
+	text-align: left;
+}
+
+.ref-ob__rating-criteria__criteria-table__points-header-right {
+	text-align: right;
+}
+
+.ref-ob__rating-criteria__criteria-table__points-td {
+	text-align: right;
+	width: 50px;
+}
+
+.ref-ob__rating-criteria__points-item {
+	padding: 4px 8px;
+}
+
+.ref-ob__rating-criteria__points-item-bonus {
+	background-color: rgba(0, 255, 0, 0.25);
+	border-radius: 5px;
+}
+
+.ref-ob__rating-criteria__points-item-mandatory {
+	background-color: rgba(255, 100, 0, 0.5);
+}
+
+.ref-ob__rating-criteria__points-item-mandatory-first {
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+.ref-ob__rating-criteria__points-item-mandatory-last {
+	border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.ref-ob__rating-detail__faults-table {
+	margin-left: 10%;
+	width: 90%;
+}
+
+.ref-ob__rating-detail__faults-table td {
+	padding-bottom: 16px;
+}
+
+.ref-ob__rating-detail__faults-table__fault-group-td {
+	width: 40%;
+}
+
+.ref-ob__rating-detail__faults-table__fault-item {
+	display: inline-block;
+	width: 49%;
+}
+
+.ref-ob__ratings-sum {
+	float: none !important;
+	font-size: 110%;
+	padding-bottom: 16px;
+	padding-right: 16px;
+	text-align: right;
+}
+
+
+
+/* zweiter Schritt mit Freitexten */
+
+.ref-ob__details {
+	float: none !important;
+}
+
+.ref-ob__details div {
+	float: none !important;
+	margin-bottom: 24px;
+}
+
+.ref-ob__details label {
+	display: block;
+	margin-bottom: 4px;
+	width: 100%;
+}
+
+
+
+/* stellvertretende Erfassung */
+
+.ref-ob__edit-in-place table, .ref-ob__edit-in-place tr, .ref-ob__edit-in-place td, .ref-ob__edit-in-place th {
+	border: 0px;
+}
+
+.ref-ob__edit-in-place__table tr:nth-child(2) td {
+	padding: 4px 24px;
+}
+
+
+
+/* stellvertretende Erfassung */
+
+.ref_ob__overview-table {
+	width: 100%;
+}
+
+.ref_ob__overview-table th {
+	font-size: 80%;
+	font-weight: normal;
+}
+
+.ref_ob__overview-table__100px {
+	width: 100px;
+}
+
+.ref_ob__overview-table__150px {
+	width: 150px;
+}

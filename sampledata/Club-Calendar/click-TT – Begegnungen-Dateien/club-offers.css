@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+
+.club-offer-type-header {
+    padding-top: 16px;
+    padding-bottom: 8px;
+}
+
+.edit-object .club-offer-type-header {
+    float: none;
+}
+
+.club-offer-type-header {
+    font-weight: bold;
+}
+
+.club-offer-div {
+    float: none;
+    padding-top: 8px;
+    padding-bottom: 16px;
+}
+
+.edit-object .club-offer-div {
+    float: none;
+}
+
+.club-offer-detail {
+    padding-left: 48px;
+    padding-top: 16px;
+}
+
+li .club-offer-detail {
+    padding-left: 0px;
+}
+
+.club-offer-div .club-offer-detail {
+    float: none;
+}
+
+.club-offer-div .club-offer-detail .remove-link {
+    margin-left: 100px;
+}

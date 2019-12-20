@@ -8,11 +8,11 @@
     "nx.json": "*"
   },
   "projects": {
-    "frontend-e2e": {
-      "tags": ["frontend-e2e", "e2e"]
+    "myclub-shared": {
+      "tags": []
     },
-    "frontend": {
-      "tags": ["frontend"]
+    "scraper": {
+      "tags": ["scraper"]
     }
   }
 }

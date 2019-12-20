@@ -58,6 +58,14 @@
           {
             "sourceTag": "*",
             "onlyDependOnLibsWithTags": ["*"]
+          },
+          {
+            "sourceTag": "frontend",
+            "onlyDependOnLibsWithTags": ["*", "frontend"]
+          },
+          {
+            "sourceTag": "e2e",
+            "onlyDependOnLibsWithTags": ["*", "e2e"]
           }
         ]
       }

@@ -1,0 +1,159 @@
+/* swiss table tennis 2014 */
+
+
+@import url(https://fonts.googleapis.com/css?family=Archivo+Narrow:400,400italic,700,700italic);
+@import url("/css/menu.min.css");
+@import url("/css/lang-template.css");
+@import url("/css/template.css");
+@import url("/css/menu.css");
+
+/****************************************/
+#page { background: url('../gfx/BG_flaeche_Inhalt.png') repeat-y scroll center top transparent; position:relative; top:182px;  }
+/****************************************/
+#header { position:absolute; top:-91px; z-index:22; height:92px; text-align:center; margin:0 auto; width:100%; }
+#header { background: url('../gfx/BG_schatten_Inhalt_oben.png') no-repeat scroll center bottom transparent; }
+/****************************************/
+#logo { width:980px; margin:3px auto 0 auto; }
+#logo a { width:209px; height:66px; display: block; position:relative; }
+#logo img { width:209px; height:66px; display: block; background-image: url('../gfx/Logo.png'); }
+#user { display:none; }
+#banner {
+    position: absolute;
+    left: 800px;
+    top: 0px;
+}
+li.banner {
+    list-style: none;
+}
+/****************************************/
+#tabs-external { height:80px; width:980px; text-align:left; margin:0 auto; position:relative; top:-182px; z-index: 99;}
+#tabs-external .mod-languages { visibility:hidden;}
+#tabs {	line-height: 30px; font-size: 16px; }
+#tabs ul {
+	list-style-type: none;
+	margin:0px;
+	padding:0px;
+	width:920px;
+}
+#tabs li { font-family: 'Archivo Narrow', sans-serif;
+	list-style: none;
+	padding:0;
+	float:left;
+	margin:0px 17px 0 0;
+	color:#444;
+
+}
+#tabs #tabSelected a { color: #000; } 
+#tabs a { font-weight:normal; color:#fff; font-family: 'Archivo Narrow', sans-serif; }
+#tabs { overflow:hidden; } /* clear error */
+
+/****************************************/
+#breadcrumb { clear:both; color:#000000; padding:0px 0; margin: 0 0 0px 0; width:980px; text-align:left; margin:0 auto; position:relative; top:-97px; z-index:25; }
+#breadcrumb a:link { font-weight:normal;  }
+#breadcrumb a:visited { font-weight:normal;  }
+#language-switcher { position: absolute; top:-183px; right: 50px; width: auto; text-align: right; list-style: none; z-index:199; }
+#language-switcher  ul { list-style-type: none; }
+#language-switcher  li { display: inline; margin: 0 5px; }
+#language-switcher  a { color:#fff; }
+/****************************************/
+#container { width:980px;  min-height:400px; position:relative; width:980px; text-align:left; margin:0 auto; position:relative; top:-82px; margin-bottom:-82px; }
+
+
+#container { overflow:hidden; } /* clear error */
+* html #container { height::1%; }
+#navigation { padding:0; margin:0 10px 0 0; width:170px; line-height: 120%; color:#003366; float:left; }
+#navigation select { width:156px; }
+#navigation a { display:block; width:100%; font-weight:normal; }
+#navigation ul {
+	padding:0 0 0 0px;
+	margin:0px;
+	list-style-type: none;
+}
+#navigation ul ul {
+	padding:0px;
+	margin:0px;
+}
+#navigation ul li {
+	margin:0px;
+	padding:4px 0px 4px 0px;
+	line-height: 120%;
+}
+#navigation ul li ul li{
+	margin:0px;
+	font-weight:normal;
+	padding:2px 2px 2px 0px;
+	}
+#navigation ul li ul li a { font-weight:normal; }
+#navigation strong { display:block; }
+/****************************************/
+#sub-navigation { border:1px solid #CECFD6; padding: 4px 0 0 10px; }
+#sub-navigation a { font-weight:normal; }
+#sub-navigation ul { }
+#sub-navigation li { }
+/****************************************/
+#content { width:800px; line-height:133%; float:left; }
+#content-col1 {float:left; width:482px; padding-left:10px; } 
+#content-col2 {float:right; width:256px; padding-left:10px; }
+#content-row1 { clear:both; padding-left:10px; }
+#content-row2  { clear:both; padding-left:10px; }
+/****************************************/
+#footer { clear:both; padding:20px 0px; margin:0px; background: url('../gfx/BG_schatten_Inhalt_unten.png') no-repeat scroll center top transparent; position:relative; width:980px; text-align:left; margin:0 auto; position:relative; top:74px; height:34px; overflow:hidden; }
+#footer a { font-weight:normal;}
+/****************************************/
+html { height: 100%; font-size: 100%; overflow-y: scroll; /* Force a scrollbar in non-IE */ -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+
+html { background: url('../gfx/BG.jpg') no-repeat fixed center top transparent; width:100%; height:auto; background-color:#fff; }
+body { background: url('../gfx/Navi_BG.png') no-repeat scroll center 0px transparent; margin:0; padding:0; }
+
+body,td,th,div,ul,ol,dt,input,option,select,textarea,legend,a,h1,h2,h3,h4,h5,h6,p { font-family: Arial, Helvetica, sans-serif;  }
+body { min-height:100%; font-size:12px; color:#000;  /*background-image:url("../gfx/bg-ohne.png"); background-position:center 0px; background-repeat:no-repeat;*/ }
+textarea { font-size:1em; }
+input { font-size:1em; }
+select { font-size:1em; }
+
+#content p { margin: 0 0 16px 0; }
+
+#container a:link, container a:visited {
+	color: #b0003c;
+	text-decoration: none;
+	font-weight: bold;
+}
+container a:hover {
+	text-decoration: none;
+	background-color: #EEEFED;
+}
+
+/* Individuelle Konfiguration */
+#content ul { margin: 0 0 16px 0; padding: 0 8px 0 8px; }
+#content ul ul { margin: 0 0 0 16px; }
+#content ol { margin: 0 0 16px 0; padding: 0 8px 0 8px; }
+#content li { margin: 0 0 0 16px; padding:0px; }
+
+#content .liga-layer li { padding:0 6px 0 0; margin:0 4px 0 0; }
+#content .result-set ol { padding:0 0 0 16px; margin:0;  }
+#content .result-set li { padding:0 0 0 1.9em; margin:0;text-indent:-1.9em; }
+#content .result-set ul { padding:0; margin:0; }
+
+.matrix {  font-size:100%; }
+.matrix a { font-weight:normal; }
+.matrix th { /* background-color:#EFF3EC; */ border-bottom:0; border-right:0; }
+.search-query { /* background-color:#EFF3EC; */ }
+.matrix h2 { /* background-color:#EFF3EC; */ border-bottom:0; border-right:0; }
+#content .matrix ul { padding:4px 0px 20px 0; margin:0px 0 0px 0; }
+* html #content .matrix ul { padding:4px 0px 10px 0; }
+#content .matrix li { padding:0px 16px 0px 4px; margin:0 0px 0px 0px; }
+
+#content .search-query ul { margin:0px 0 8px 4px; padding:0; }
+#content .search-query li { padding:0 6px 0 0; margin:0 4px 0 0; }
+#content .registration ul { margin:0 0 0px 10px; clear:both; padding:2px 0 10px 15px; }
+#content .registration li { margin: 0 0 0px 10px; padding: 0px 0 0px 10px; line-height:180%; }
+
+#content .auto_complete ul { padding:0px; margin:0px; }
+#content .auto_complete ul li { margin:0; padding:2px; }
+
+.query label {  width: 100px; }
+
+
+
+/* Designalternative zu 2***
+body { background-color:#EFF3EC; background-image:url(../images/background-ball.gif); background-position:right -40px; }*/

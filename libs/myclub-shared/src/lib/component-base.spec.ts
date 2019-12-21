@@ -1,3 +1,4 @@
+import { OnDestroy } from "@angular/core";
 import { Observable, Subject, Subscription } from "rxjs";
 //tslint:disable-next-line:rxjs-no-do
 import { share, tap } from "rxjs/operators";
@@ -27,7 +28,10 @@ describe('ComponentBase', () => {
           )
         ;
 
-        this.subscription = this.subscribeUntilDestroyed(this.stream$.subscribe());
+        this.subscription = this.subscribeUntilDestroyed(this.stream$.subscribe({
+          next: next => console.log(next),
+          error: error => console.log(error)
+        }));
       }
     }
 
@@ -44,8 +48,8 @@ describe('ComponentBase', () => {
     }));
 
     it('should unsubscribe the subscription on onDestroy', () => {
-      const subject = new Subject();
-      const fixture = new MyComponent(subject);
+      const subject$ = new Subject();
+      const fixture = new MyComponent(subject$);
 
       expect(fixture.subscription.closed)
         .toBeFalsy();

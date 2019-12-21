@@ -1,17 +1,18 @@
-import {OnDestroy, OnInit} from '@angular/core';
-import {MonoTypeOperatorFunction, Observable, Subject} from 'rxjs';
+import {OnDestroy} from '@angular/core';
+import { MonoTypeOperatorFunction, Observable, Subject, Subscription } from "rxjs";
 import {takeUntil} from 'rxjs/operators';
 
-export class ComponentBase implements OnInit, OnDestroy {
-  private readonly destroyed: Subject<void> = new Subject();
+export class ComponentBase implements OnDestroy {
+  private readonly __destroyed$: Subject<void> = new Subject();
+  private readonly __subscription = new Subscription();
 
   /**
    * Pipes the Observable through {@link takeUntil} and triggers on {@link OnDestroy}.
    *
    * See also: {@link takeUntilDestroyed}
    */
-  protected takeUntilDestroyed$<T>(observable: Observable<T>): Observable<T> {
-    return observable.pipe(this.takeUntilDestroyed());
+  protected takeUntilDestroyed$<T>(observable$: Observable<T>): Observable<T> {
+    return observable$.pipe(this.takeUntilDestroyed());
   }
 
   /**
@@ -20,16 +21,25 @@ export class ComponentBase implements OnInit, OnDestroy {
    * See also: {@link takeUntilDestroyed$}
    */
   protected takeUntilDestroyed<T>(): MonoTypeOperatorFunction<T> {
-    return takeUntil(this.destroyed);
+    return takeUntil(this.__destroyed$);
   }
 
-  public ngOnInit(): void {
-    // placeholder for symmetry to ngOnDestroy
+  /**
+   * Triggers unsubscription {@link OnDestroy}.
+   *
+   * See also: {@link Subscription}.
+   *
+   * @return the original subscription for a fluent api.
+   */
+  protected subscribeUntilDestroyed(subscription: Subscription): Subscription {
+    this.__subscription.add(subscription);
+    return subscription;
   }
 
   public ngOnDestroy(): void {
-    this.destroyed.next();
-    this.destroyed.complete();
+    this.__destroyed$.next();
+    this.__destroyed$.complete();
+    this.__subscription.unsubscribe();
   }
 
 }

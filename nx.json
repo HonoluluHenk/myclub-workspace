@@ -11,10 +11,19 @@
     "myclub-shared": {
       "tags": []
     },
-    "scraper-poc": {
-      "tags": ["scraper-poc"]
-    },
     "scraper": {
+      "tags": ["lib", "backend"]
+    },
+    "export": {
+      "tags": []
+    },
+    "frontend-e2e": {
+      "tags": []
+    },
+    "frontend": {
+      "tags": []
+    },
+    "scraper-backend": {
       "tags": []
     }
   }

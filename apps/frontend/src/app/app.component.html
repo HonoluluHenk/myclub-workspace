@@ -1,0 +1,24 @@
+<header class="flex">
+  <h1>Welcome to {{ title }}!</h1>
+</header>
+<main>
+  <div *ngIf="!(schedules$ | async).length">
+    No schedules loaded
+    <button type="button" (click)="search()">Search</button>
+  </div>
+  <div *ngIf="(schedules$ | async).length">
+
+    <form [formGroup]="form" ngxsForm="app.searchScheduleForm">
+      <p>
+        <input formControlName="club">
+        <input formControlName="season">
+      </p>
+    </form>
+
+    <p *ngFor="let schedule of (schedules$ | async)">
+      <span>Match: {{schedule.homeTeam}} - {{schedule.guestTeam}} @ {{schedule.dateTimeAsUTC}}</span>
+    </p>
+
+  </div>
+</main>
+<router-outlet></router-outlet>

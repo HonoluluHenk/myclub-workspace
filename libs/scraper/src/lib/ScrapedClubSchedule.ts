@@ -8,6 +8,7 @@ export interface ScrapedClubSchedule {
   guestTeam: string,
   divistion: string,
   location: string,
+  locationComment: string,
   score: ScrapedScore | undefined,
   matchMoved: boolean | undefined,
   matchHomeSwitched: boolean | undefined,

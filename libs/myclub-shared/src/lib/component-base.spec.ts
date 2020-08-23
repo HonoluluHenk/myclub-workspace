@@ -1,4 +1,3 @@
-import { OnDestroy } from "@angular/core";
 import { Observable, Subject, Subscription } from "rxjs";
 //tslint:disable-next-line:rxjs-no-do
 import { share, tap } from "rxjs/operators";

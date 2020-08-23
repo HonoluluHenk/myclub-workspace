@@ -1,24 +1,32 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "rootDir": ".",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
+    "baseUrl": ".",
+    "declaration": true,
+    "declarationMap": true,
+    "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
-    "typeRoots": ["node_modules/@types"],
     "lib": ["es2017", "dom"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "baseUrl": ".",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "newLine": "LF",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
     "paths": {
       "@myclub/myclub-shared": ["libs/myclub-shared/src/index.ts"],
-      "@myclub/scraper": ["libs/scraper/src/index.ts"]
-    }
+      "@myclub/scraper": ["libs/scraper/src/index.ts"],
+      "@myclub/export": ["libs/export/src/index.ts"]
+    },
+    "rootDir": ".",
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2015",
+    "typeRoots": ["node_modules/@types"]
   },
   "exclude": ["node_modules", "tmp"]
 }

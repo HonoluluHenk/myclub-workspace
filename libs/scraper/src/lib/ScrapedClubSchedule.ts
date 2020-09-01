@@ -3,12 +3,10 @@ export interface ScrapedScore {
   guest: number
 }
 export interface ScrapedClubSchedule {
-  dateTimeAsUTC: Date,
+  localDateTimeAsUTC: Date,
   homeTeam: string,
   guestTeam: string,
-  divistion: string,
   location: string,
-  locationComment: string,
   score: ScrapedScore | undefined,
   matchMoved: boolean | undefined,
   matchHomeSwitched: boolean | undefined,

@@ -1,8 +1,8 @@
 import { ScrapedClubSchedule } from "@myclub/scraper";
 import { Controller, Get, Header, Param } from "@nestjs/common";
 import * as ical from "ical-generator";
-import * as moment from "moment";
 import { ClubScheduleScraper } from "../scraper/club-schedule-scraper";
+import {DateTime} from 'luxon';
 
 function buildEncounterSummary(ts: ScrapedClubSchedule, homeTeam: string) {
   const home = ts.homeTeam === homeTeam;
@@ -30,12 +30,12 @@ function createIcal(description: string, team: string, schedule: ScrapedClubSche
     .forEach(ts => {
       cal.createEvent({
         id: `${ts.homeTeam}===${ts.guestTeam}`,
-        start: moment.utc(ts.dateTimeAsUTC),
-        end: moment.utc(ts.dateTimeAsUTC).add(2, "hours"),
+        start: ts.localDateTimeAsUTC,
+        end: DateTime.fromJSDate(ts.localDateTimeAsUTC).plus({hours: 2}).toJSDate(),
         summary: buildEncounterSummary(ts, team),
         // description: builder.buildEncounterDescription(encounter, params),
         // location: builder.buildEncounterLocation(encounter, params),
-        stamp: moment()
+        stamp: DateTime.utc().toJSDate(),
       });
     });
 
@@ -50,13 +50,13 @@ export class ScheduleController {
   constructor(private readonly scraper: ClubScheduleScraper) {
   }
 
-  @Get(":season/:clubId")
+  @Get(":championship/:groupId")
   async findSchedulesForSeason(
-    @Param("season") season: string,
-    @Param("clubId") clubId: number
+    @Param("championship") championship: string,
+    @Param("groupId") groupId: number
   ) {
-    const result = await this.scraper.scrape(season, clubId);
-    // console.log("result", season, clubId, result);
+    const result = await this.scraper.scrape(championship, groupId);
+    console.log("result", championship, groupId, result);
     return result;
   }
 

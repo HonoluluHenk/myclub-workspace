@@ -14,7 +14,10 @@
               "libs/myclub-shared/tsconfig.lib.json",
               "libs/myclub-shared/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/myclub-shared/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/myclub-shared/**/*"
+            ]
           }
         },
         "test": {
@@ -45,7 +48,10 @@
               "libs/scraper/tsconfig.lib.json",
               "libs/scraper/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/scraper/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/scraper/**/*"
+            ]
           }
         },
         "test": {
@@ -76,7 +82,10 @@
               "libs/export/tsconfig.lib.json",
               "libs/export/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/export/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/export/**/*"
+            ]
           }
         },
         "test": {
@@ -118,7 +127,9 @@
               "apps/frontend/src/favicon.ico",
               "apps/frontend/src/assets"
             ],
-            "styles": ["apps/frontend/src/styles.scss"],
+            "styles": [
+              "apps/frontend/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -178,7 +189,10 @@
               "apps/frontend/tsconfig.app.json",
               "apps/frontend/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/frontend/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/frontend/**/*"
+            ]
           }
         },
         "test": {
@@ -212,8 +226,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/frontend-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/frontend-e2e/**/*"]
+            "tsConfig": [
+              "apps/frontend-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/frontend-e2e/**/*"
+            ]
           }
         }
       }
@@ -231,7 +250,9 @@
             "outputPath": "dist/apps/scraper-backend",
             "main": "apps/scraper-backend/src/main.ts",
             "tsConfig": "apps/scraper-backend/tsconfig.app.json",
-            "assets": ["apps/scraper-backend/src/assets"]
+            "assets": [
+              "apps/scraper-backend/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -260,7 +281,10 @@
               "apps/scraper-backend/tsconfig.app.json",
               "apps/scraper-backend/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/scraper-backend/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/scraper-backend/**/*"
+            ]
           }
         },
         "test": {
@@ -275,7 +299,8 @@
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "827e9314-4bcd-4242-be39-b45a46f23643"
   },
   "schematics": {
     "@nrwl/angular:application": {

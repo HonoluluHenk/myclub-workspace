@@ -1,4 +1,3 @@
-import * as moment from "moment";
 
 import { Filters, Params, PlayerCalendarService } from "./player-calendar.service";
 
@@ -103,7 +102,7 @@ describe("PlayerCalendarService", () => {
               seasonId: "Season1",
               homeTeamId: "Team1a",
               guestTeamId: "dg1",
-              startAsUTC: moment.utc("1976-11-19T20:00:00"),
+              startAsUTC: DateTime.utc("1976-11-19T20:00:00"),
               locationId: "LocationA"
             }, {
               id: "3-1b",

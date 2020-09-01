@@ -8,4 +8,5 @@ module.exports = {
   coverageReporters: ['html'],
   passWithNoTests: true,
   automock: false,
+  // setupFilesAfterEnv: ["jest-expect-message"]
 };

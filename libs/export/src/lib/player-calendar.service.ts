@@ -1,5 +1,5 @@
 import * as ical from "ical-generator";
-import * as moment from "moment";
+import {DateTime} from 'luxon';
 
 export interface UID {
   id: string;
@@ -34,7 +34,7 @@ export interface TeamEncounter extends UID {
   seasonId: string,
   homeTeamId: string,
   guestTeamId: string,
-  startAsUTC: moment.Moment,
+  startAsUTC: DateTime,
   locationId: string
 }
 
@@ -102,12 +102,12 @@ export class FieldBulder {
   }
 
   // noinspection JSUnusedLocalSymbols
-  buildEncounterStart(encounter: TeamEncounter, params: Params): moment.Moment {
-    return moment(encounter.startAsUTC);
+  buildEncounterStart(encounter: TeamEncounter, params: Params): DateTime {
+    return encounter.startAsUTC;
   }
 
-  buildEncounterEnd(encounter: TeamEncounter, params: Params): moment.Moment {
-    return this.buildEncounterStart(encounter, params).add(2, "hour");
+  buildEncounterEnd(encounter: TeamEncounter, params: Params): DateTime {
+    return this.buildEncounterStart(encounter, params).plus({hours: 2});
   }
 
   // noinspection JSUnusedLocalSymbols
@@ -196,12 +196,12 @@ export class PlayerCalendarService {
       .forEach(encounter => {
         cal.createEvent({
           id: builder.buildEncounterId(encounter, params),
-          start: builder.buildEncounterStart(encounter, params),
-          end: builder.buildEncounterEnd(encounter, params),
+          start: builder.buildEncounterStart(encounter, params).toJSDate(),
+          end: builder.buildEncounterEnd(encounter, params).toJSDate(),
           summary: builder.buildEncounterSummary(encounter, params),
           description: builder.buildEncounterDescription(encounter, params),
           location: builder.buildEncounterLocation(encounter, params),
-          stamp: moment()
+          stamp: DateTime.utc().toJSDate(),
         });
       });
 

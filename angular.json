@@ -14,7 +14,7 @@
               "libs/myclub-shared/tsconfig.lib.json",
               "libs/myclub-shared/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/myclub-shared/**"]
+            "exclude": ["**/node_modules/**", "!libs/myclub-shared/**/*"]
           }
         },
         "test": {
@@ -45,7 +45,7 @@
               "libs/scraper/tsconfig.lib.json",
               "libs/scraper/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/scraper/**"]
+            "exclude": ["**/node_modules/**", "!libs/scraper/**/*"]
           }
         },
         "test": {
@@ -76,7 +76,7 @@
               "libs/export/tsconfig.lib.json",
               "libs/export/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/export/**"]
+            "exclude": ["**/node_modules/**", "!libs/export/**/*"]
           }
         },
         "test": {
@@ -178,7 +178,7 @@
               "apps/frontend/tsconfig.app.json",
               "apps/frontend/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/frontend/**"]
+            "exclude": ["**/node_modules/**", "!apps/frontend/**/*"]
           }
         },
         "test": {
@@ -213,7 +213,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["apps/frontend-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/frontend-e2e/**"]
+            "exclude": ["**/node_modules/**", "!apps/frontend-e2e/**/*"]
           }
         }
       }
@@ -260,7 +260,7 @@
               "apps/scraper-backend/tsconfig.app.json",
               "apps/scraper-backend/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/scraper-backend/**"]
+            "exclude": ["**/node_modules/**", "!apps/scraper-backend/**/*"]
           }
         },
         "test": {

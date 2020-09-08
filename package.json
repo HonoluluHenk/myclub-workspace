@@ -27,7 +27,7 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "postinstall": "node ./decorate-angular-cli.js"
+    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
   },
   "private": true,
   "dependencies": {
@@ -89,7 +89,7 @@
     "cypress": "3.8.3",
     "dotenv": "6.2.0",
     "eslint": "6.8.0",
-    "jest": "26.2.2",
+    "jest": "^26.4.2",
     "jest-expect-message": "^1.0.2",
     "jest-preset-angular": "^8.3.1",
     "prettier": "2.0.4",

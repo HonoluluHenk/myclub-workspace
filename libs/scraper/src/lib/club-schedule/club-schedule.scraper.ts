@@ -1,9 +1,8 @@
 import {DateTime} from 'luxon';
 import {ClubSchedule} from '.';
 import * as cheerio from 'cheerio';
-import fetch from 'node-fetch';
-
-const MSEC = 1000;
+import {download} from '../shared/download';
+import {clean, parseDate, parseDateFormat} from '../scrape-helpers';
 
 export async function scrapeClubSchedule(
   seasonStartYear: number,
@@ -13,16 +12,7 @@ export async function scrapeClubSchedule(
   const url = buildSpielplanGesamtURL(seasonStartYear, clubId, teamId);
   // console.debug('scrape url', seasonStartYear, clubId, teamId, url);
 
-  const response = await fetch(
-    url,
-    {
-      method: 'GET',
-      redirect: 'follow',
-      timeout: 5 * MSEC,
-      compress: true,
-    });
-
-  const responseText = await response.text();
+  const responseText = await download(url);
   // console.log("response text", responseText);
 
   return scrapeFromHTML(responseText);
@@ -59,18 +49,14 @@ function buildSpielplanGesamtURL(seasonStartYear: number, clubId: number, teamId
   return `https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/clubMeetings?${queryParams}`;
 }
 
-function stripWhitespace(text: string): string {
-  return (text ?? '').trim();
-}
-
-function parseRow(trElem: CheerioElement): ScrapedRow {
+function scrapeRow(trElem: CheerioElement): ScrapedRow {
   const row = cheerio.load(trElem, {
     ignoreWhitespace: false,
     normalizeWhitespace: true,
   });
 
   function nthChild(childIdx: number) {
-    return stripWhitespace(row(`tr td:nth-child(${childIdx})`).text());
+    return clean(row(`tr td:nth-child(${childIdx})`).text());
   }
 
   return {
@@ -90,21 +76,21 @@ function parseRow(trElem: CheerioElement): ScrapedRow {
   };
 }
 
-function parseHtmlRows(html: string): ScrapedRow[] {
+function scrapeRows(html: string): ScrapedRow[] {
   const $ = cheerio.load(html);
 
-  const foo: ScrapedRow[] = $('table.result-set tbody tr')
-    .map((idx, elem) => parseRow(elem))
+  const rows: ScrapedRow[] = $('table.result-set tbody tr')
+    .map((idx, elem) => scrapeRow(elem))
     .toArray() as any;
 
-  // console.log('foo', foo);
+  // console.log('rows', rows);
 
-  return foo;
+  return rows;
 }
 
 function scrapeFromHTML(htmlData: string): ClubSchedule[] {
   // console.log('html', htmlRows.html(), htmlData);
-  const data = parseHtmlRows(htmlData);
+  const data = scrapeRows(htmlData);
 
 
   const rowState = {lastDate: null};
@@ -112,7 +98,7 @@ function scrapeFromHTML(htmlData: string): ClubSchedule[] {
   const clubSchedule = data
     .slice(1) // skip header
     .filter(e => !!clean(e.timeAndFlags)) // some invisible empty rows???
-    .map(e => cleanupEntry(e, rowState))
+    .map(e => parseScrapedRow(e, rowState))
     .filter(e => !!e)
     .sort((a, b) => a.startDateTime.getTime() - b.startDateTime.getTime());
 
@@ -125,7 +111,7 @@ function scrapeFromHTML(htmlData: string): ClubSchedule[] {
 
 }
 
-function cleanupEntry(e: ScrapedRow, rowState: { lastDate: DateTime | null }): ClubSchedule {
+function parseScrapedRow(e: ScrapedRow, rowState: { lastDate: DateTime | null }): ClubSchedule {
   const date = parseDate(e.date, rowState.lastDate);
   if (!date) {
     throw Error('Illegal state: date empty but previous line did not contain a date?' + JSON.stringify(e));
@@ -173,19 +159,6 @@ function parseDivisionName(text: string): string {
   return clean(text);
 }
 
-function trimToEmpty(text: string | null | undefined): string {
-  if (text) {
-    const result = text.trim();
-    return result;
-  }
-  return '';
-}
-
-function clean(text: string | null | undefined): string {
-  const cleaned = trimToEmpty(text);
-  return cleaned;
-}
-
 function parseScore(score: string) {
   const cleaned = clean(score);
 
@@ -213,28 +186,6 @@ function concatDateTime(date: DateTime, time: DateTime): DateTime {
     hour: time.hour,
     minute: time.minute,
   });
-}
-
-function parseDateFormat(cleanTimeText: string, format: string) {
-  return DateTime.fromFormat(cleanTimeText, format, {locale: 'de', zone: 'Europe/Zurich', setZone: true});
-}
-
-function parseDate(dateText: string, fallback: DateTime | null): DateTime | null {
-  let date: DateTime | null;
-  const cleanText = clean(dateText);
-  if (cleanText) {
-    date = parseDateFormat(cleanText, 'dd.MM.yyyy');
-  } else {
-    date = fallback;
-  }
-
-  // throw new Error(date?.toISO());
-
-  if (date?.isValid) {
-    return date;
-  }
-
-  throw new Error(`Invalid date: ${date}(${dateText}/${fallback})`);
 }
 
 function parseTimeAndMatchFlags(timeAndFlagsText: string) {

@@ -30,6 +30,7 @@ export class AppComponent {
   }
 
   public search() {
+    // tslint:disable-next-line:rxjs-no-ignored-observable
     this.store.dispatch(new Actions.LoadScrapedSchedule("13-2870", 33282));
   }
 }

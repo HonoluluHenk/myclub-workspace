@@ -15,7 +15,6 @@
     "moduleResolution": "node",
     "newLine": "LF",
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
     "paths": {

@@ -6,6 +6,6 @@
     "types": ["jest", "node"],
     "lib": ["esnext", "dom"]
   },
-  "files": ["src/test-setup.ts"],
+  "files": ["src/test-typings.d.ts"],
   "include": ["**/*.spec.ts", "**/*.d.ts"]
 }

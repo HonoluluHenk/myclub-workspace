@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { ScrapedClubSchedule } from "@myclub/scraper";
+import { ClubSchedule } from "@myclub/scraper";
 import { Select, Store } from "@ngxs/store";
 import { Observable } from "rxjs";
 import { Actions } from "./store/app.actions";
@@ -16,7 +16,7 @@ export class AppComponent {
 
   public form: FormGroup;
 
-  @Select(AppState.schedules) schedules$!: Observable<ScrapedClubSchedule[]>;
+  @Select(AppState.schedules) schedules$!: Observable<ClubSchedule[]>;
 
   constructor(
     fb: FormBuilder,

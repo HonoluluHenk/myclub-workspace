@@ -1,4 +1,4 @@
-import { ScrapedClubSchedule } from "@myclub/scraper";
+import { ClubSchedule } from "@myclub/scraper";
 
 export namespace Actions {
   export class LoadScrapedSchedule {
@@ -11,7 +11,7 @@ export namespace Actions {
   export class ScrapedScheduleLoaded {
     static type = "[Schedule] ScrapedScheduleLoaded";
 
-    constructor(public readonly schedule: ScrapedClubSchedule[]) {
+    constructor(public readonly schedule: ClubSchedule[]) {
     }
   }
 }

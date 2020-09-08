@@ -1,7 +1,7 @@
-import { ScrapedClubSchedule } from "@myclub/scraper";
+import { ClubSchedule } from "@myclub/scraper";
 
 export interface AppStateModel {
-  scrapedClubSchedules: ScrapedClubSchedule[],
+  scrapedClubSchedules: ClubSchedule[],
   searchScheduleForm: {
     model: any,
     dirty: boolean,

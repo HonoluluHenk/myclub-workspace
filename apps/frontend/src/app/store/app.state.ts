@@ -1,4 +1,4 @@
-import { ScrapedClubSchedule } from "@myclub/scraper";
+import { ClubSchedule } from "@myclub/scraper";
 import { Action, Selector, State, StateContext, StateToken } from "@ngxs/store";
 import produce from "immer";
 import { ScheduleScraperService } from "../schedule-scraper.service";
@@ -24,7 +24,7 @@ export class AppState {
   }
 
   @Selector()
-  static schedules(state: AppStateModel): ScrapedClubSchedule[] {
+  static schedules(state: AppStateModel): ClubSchedule[] {
     return state.scrapedClubSchedules;
   }
 

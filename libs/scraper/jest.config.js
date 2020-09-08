@@ -3,7 +3,11 @@ module.exports = {
   preset: '../../jest.config.js',
   coverageDirectory: '../../coverage/libs/scraper',
   snapshotSerializers: [
-    'jest-preset-angular/AngularSnapshotSerializer.js',
-    'jest-preset-angular/HTMLCommentSerializer.js'
-  ]
+    // 'jest-preset-angular/AngularSnapshotSerializer.js',
+    // 'jest-preset-angular/HTMLCommentSerializer.js'
+  ],
+  setupFilesAfterEnv: [
+    './src/test-setup.ts',
+  ],
+  cache: false,
 };

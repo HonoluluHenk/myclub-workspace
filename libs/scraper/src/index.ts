@@ -1,1 +1,1 @@
-export * from './lib/ScrapedClubSchedule';
+export * from './lib/club-schedule';

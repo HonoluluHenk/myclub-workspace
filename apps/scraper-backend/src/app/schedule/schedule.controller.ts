@@ -1,10 +1,9 @@
-import { ScrapedClubSchedule } from "@myclub/scraper";
-import { Controller, Get, Header, Param } from "@nestjs/common";
-import * as ical from "ical-generator";
-import { ClubScheduleScraper } from "../scraper/club-schedule-scraper";
+import {Controller, Get, Header, Param} from '@nestjs/common';
+import * as ical from 'ical-generator';
 import {DateTime} from 'luxon';
+import {ClubSchedule, scrapeClubSchedule} from '@myclub/scraper';
 
-function buildEncounterSummary(ts: ScrapedClubSchedule, homeTeam: string) {
+function buildEncounterSummary(ts: ClubSchedule, homeTeam: string) {
   const home = ts.homeTeam === homeTeam;
   if (home) {
     return `TT H: ${ts.guestTeam}`;
@@ -13,25 +12,29 @@ function buildEncounterSummary(ts: ScrapedClubSchedule, homeTeam: string) {
   return `TT A: ${ts.homeTeam}`;
 }
 
-function createIcal(description: string, team: string, schedule: ScrapedClubSchedule[]): string {
+function createIcal(description: string, team: string, schedule: ClubSchedule[]): string {
   const cal = ical({
-    domain: "myclub",
+    domain: 'myclub',
     name: team,
-    description
+    description,
+    // timezone: 'GMT+2',
+    timezone: 'Europe/Zurich',
   });
 
   const teamSchedule = schedule
     .filter(s => !s.teamCancelled)
     .filter(s => s.homeTeam === team || s.guestTeam === team);
 
-  console.log("length:", teamSchedule.length);
+  console.log('length:', teamSchedule.length);
 
   teamSchedule
     .forEach(ts => {
       cal.createEvent({
         id: `${ts.homeTeam}===${ts.guestTeam}`,
-        start: ts.localDateTimeAsUTC,
-        end: DateTime.fromJSDate(ts.localDateTimeAsUTC).plus({hours: 2}).toJSDate(),
+        start: ts.startDateTime,
+        end: DateTime.fromJSDate(ts.startDateTime)
+          .plus({hours: 2})
+          .toJSDate(),
         summary: buildEncounterSummary(ts, team),
         // description: builder.buildEncounterDescription(encounter, params),
         // location: builder.buildEncounterLocation(encounter, params),
@@ -41,40 +44,62 @@ function createIcal(description: string, team: string, schedule: ScrapedClubSche
 
   const result = cal.toString();
 
-  console.log("ical", result);
+  console.log('ical', result);
   return result;
 }
 
-@Controller("schedule")
+@Controller('schedule')
 export class ScheduleController {
-  constructor(private readonly scraper: ClubScheduleScraper) {
-  }
-
-  @Get(":championship/:groupId")
-  async findSchedulesForSeason(
-    @Param("championship") championship: string,
-    @Param("groupId") groupId: number
+  @Get(':seasonStartYear/:clubId')
+  async findClubScheduleForSeason(
+    @Param('seasonStartYear') seasonStartYear: string,
+    @Param('clubId') clubId: string,
   ) {
-    const result = await this.scraper.scrape(championship, groupId);
-    console.log("result", championship, groupId, result);
+    console.log('scrape:', seasonStartYear, clubId);
+    const result = await scrapeClubSchedule(
+      parseInt(seasonStartYear, 10),
+      parseInt(clubId, 10),
+    );
+    // console.log('result:', seasonStartYear, clubId, result);
     return result;
   }
 
-  @Get(":season/:clubId/:teamId/ical")
-  @Header("content-type", "text/calendar")
-  @Header("content-disposition", "attachment;filename=" + encodeURIComponent("foo.ics"))
+  @Get(':seasonStartYear/:clubId/:teamId')
+  async findClubScheduleForSeasonAndTeam(
+    @Param('seasonStartYear') seasonStartYear: string,
+    @Param('clubId') clubId: string,
+    @Param('teamId') teamId: string,
+  ) {
+    console.log('scrape:', seasonStartYear, clubId);
+    const result = await scrapeClubSchedule(
+      parseInt(seasonStartYear, 10),
+      parseInt(clubId, 10),
+      parseInt(teamId, 10),
+    );
+    // console.log('result:', seasonStartYear, clubId, result);
+    return result;
+  }
+
+  @Get(':seasonStartYear/:clubId/:teamId/ical/:teamName')
+  @Header('content-type', 'text/calendar')
+  @Header('content-disposition', 'attachment;filename=' + encodeURIComponent('foo.ics'))
   async findSchedulesForSeasonAsIcal(
-    @Param("season") season: string,
-    @Param("clubId") clubId: number,
-    @Param("teamId") teamId: string
+    @Param('seasonStartYear') seasonStartYear: string,
+    @Param('clubId') clubId: string,
+    @Param('teamId') teamId: string,
+    @Param('teamName') teamName: string,
     // @Res() response: Response
   ) {
-    const schedule = await this.scraper.scrape(season, clubId);
+    const schedule = await scrapeClubSchedule(
+      parseInt(seasonStartYear, 10),
+      parseInt(clubId, 10),
+      parseInt(teamId, 10),
+    );
     if (!schedule) {
-      throw new Error(`could not scrape: ${season}/${clubId}`);
+      throw new Error(`could not scrape: ${seasonStartYear}/${clubId}`);
     }
 
-    const icalData = createIcal(`Schedule`, "Ostermundigen IV", schedule);
+    const icalData = createIcal(`Schedule`, teamName, schedule);
 
     return icalData;
   }

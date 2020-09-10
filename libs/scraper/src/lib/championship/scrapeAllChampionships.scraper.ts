@@ -3,7 +3,7 @@ import {download} from '../shared/download';
 import {languageCode, PreferredLanguage} from '../shared/i18n';
 import * as cheerio from 'cheerio';
 import {flatten} from 'lodash';
-import {clean} from '../scrape-helpers';
+import {clean, myDecodeURIComponent} from '../scrape-helpers';
 
 interface ScrapedLeague {
   leagueName: string;
@@ -100,8 +100,7 @@ function parseChampionshipIdFromUrl(url: string): string | null {
     return null;
   }
 
-  const id = decodeURIComponent(found[1])
-    .replace(/\+/g, ' ');
+  const id = myDecodeURIComponent(found[1]);
 
   return id;
 }

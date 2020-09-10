@@ -32,3 +32,13 @@ function trimToEmpty(text: string | null | undefined): string {
   }
   return '';
 }
+
+/**
+ * Does standard decodeURIComponent and also decodes the '+' character.
+ */
+export function myDecodeURIComponent(text: string): string {
+  const result = decodeURIComponent(text)
+    .replace(/\+/g, ' ');
+
+  return result;
+}

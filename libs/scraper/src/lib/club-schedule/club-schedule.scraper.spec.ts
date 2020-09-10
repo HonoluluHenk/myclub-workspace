@@ -1,28 +1,19 @@
 import {ClubSchedule, scrapeClubSchedule} from '@myclub/scraper';
-import * as fs from 'fs';
-import * as path from 'path';
 import {DateTime} from 'luxon';
-import fetch from 'node-fetch';
+import {fetchMock, mockFetchSampledata} from '../../test-helpers';
 
-jest.mock('node-fetch');
-const {Response} = jest.requireActual('node-fetch');
-import MockInstance = jest.MockInstance;
 
 describe('ClubScheduleScraper', () => {
-  const PATH_TO_SAMPLEDATA = '../../../../../sampledata/Club-Calendar/click-TT – Begegnungen.html';
+  const SAMPLEDATA_PATH = 'Club-Calendar/click-TT – Begegnungen.html';
   const ROWS_IN_SAMPLEDATA = 20;
 
   describe('using mocked data', () => {
     const expected_url = 'https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/clubMeetings?club=456&searchType=1&searchTimeRangeFrom=01.07.2020&searchTimeRangeTo=31.06.2021';
-    const fetchMock = fetch as any as MockInstance<Promise<Response>, any[]>;
 
     let actual: ClubSchedule[];
 
     beforeEach(async () => {
-      const file = path.join(__dirname, PATH_TO_SAMPLEDATA);
-      const fixture = fs.readFileSync(file).toString();
-
-      fetchMock.mockReturnValue(Promise.resolve(new Response(fixture)));
+      mockFetchSampledata(SAMPLEDATA_PATH);
 
       // noinspection MagicNumberJS
       actual = await scrapeClubSchedule(2020, 456);

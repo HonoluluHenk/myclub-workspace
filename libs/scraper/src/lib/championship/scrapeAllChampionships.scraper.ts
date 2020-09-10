@@ -1,6 +1,6 @@
 import {Championship} from './championship.type';
 import {download} from '../shared/download';
-import {SupportedLang} from '../shared/i18n';
+import {languageCode, PreferredLanguage} from '../shared/i18n';
 import * as cheerio from 'cheerio';
 import {flatten} from 'lodash';
 import {clean} from '../scrape-helpers';
@@ -16,9 +16,9 @@ interface ScrapedChampionship {
 }
 
 export async function scrapeAllChampionships(
-  lang: SupportedLang,
+  lang: PreferredLanguage,
 ): Promise<Championship[]> {
-  const url = buildChampionshipsURL(lang);
+  const url = buildAllChampionshipsURL(lang);
 
   const responseText = await download(url);
   // console.log("response text", responseText);
@@ -30,10 +30,8 @@ function scrapeFromHTML(htmlData: string): Championship[] {
   // console.log('html', htmlRows.html(), htmlData);
   const data: ScrapedLeague[] = scrapeLeagues(htmlData);
 
-  const championships: Championship[] = flatten(
-    data
-      .map(e => parseScrapedRow(e))
-  );
+  const championships: Championship[]
+    = flatten(data.map(e => parseScrapedRow(e)));
 
   if (championships.length === 0) {
     // scraping error?!?
@@ -60,7 +58,7 @@ function scrapeLeague(liElem: CheerioElement): ScrapedLeague {
   const $ = cheerio.load(liElem);
 
   const leagueName = clean($('li > strong').text());
-  const championships = scrapeChampionships($('li > ul > li'))
+  const championships = scrapeChampionships($('li > ul > li'));
 
   return {
     leagueName,
@@ -86,14 +84,14 @@ function scrapeChampionships(liElementsBag: Cheerio): ScrapedChampionship[] {
     result.push({
       id,
       name,
-    })
+    });
   }
 
   return result;
 }
 
 function parseChampionshipIdFromUrl(url: string): string | null {
-  if (!url.includes("/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/leaguePage?championship=")) {
+  if (!url.includes('/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/leaguePage?championship=')) {
     return null;
   }
 
@@ -119,8 +117,8 @@ function parseScrapedRow(league: ScrapedLeague): Championship[] {
 }
 
 
-function buildChampionshipsURL(lang: SupportedLang) {
-  const url = `https://www.click-tt.ch/index.htm.${lang}`;
+function buildAllChampionshipsURL(lang: PreferredLanguage) {
+  const url = `https://www.click-tt.ch/index.htm.${languageCode(lang)}`;
 
   return url;
 }

@@ -7,10 +7,14 @@
     "declarationMap": true,
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "newLine": "LF",
@@ -18,9 +22,15 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "paths": {
-      "@myclub/myclub-shared": ["libs/myclub-shared/src/index.ts"],
-      "@myclub/scraper": ["libs/scraper/src/index.ts"],
-      "@myclub/export": ["libs/export/src/index.ts"]
+      "@myclub/myclub-shared": [
+        "libs/myclub-shared/src/index.ts"
+      ],
+      "@myclub/scraper": [
+        "libs/scraper/src/index.ts"
+      ],
+      "@myclub/export": [
+        "libs/export/src/index.ts"
+      ]
     },
     "rootDir": ".",
     "skipDefaultLibCheck": true,
@@ -28,7 +38,12 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2015",
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

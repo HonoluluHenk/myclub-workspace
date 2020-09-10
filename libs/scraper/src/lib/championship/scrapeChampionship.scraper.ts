@@ -106,6 +106,8 @@ function scrapeColumn(tdElem: CheerioElement): ChampionshipGroup[] {
     }
 
     const leaguesAnchor = $('ul li span a').toArray();
+    // false positive
+    // tslint:disable-next-line:rxjs-no-unsafe-scope
     const leagues = leaguesAnchor.map(l => parseEntry(l, currentLeagueType));
     result.push(...leagues);
   }

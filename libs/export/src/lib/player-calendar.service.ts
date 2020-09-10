@@ -1,4 +1,5 @@
-import * as ical from "ical-generator";
+import * as ical from 'ical-generator';
+
 import {DateTime} from 'luxon';
 
 export interface UID {
@@ -68,25 +69,25 @@ export class FieldBulder {
   // noinspection JSUnusedLocalSymbols
   buildHomeEncounterShortPrefix(encounter: TeamEncounter, params: Params): string {
     // FIXME: locale
-    return "H: ";
+    return 'H: ';
   }
 
   // noinspection JSUnusedLocalSymbols
   buildGuestEncounterShortPrefix(encounter: TeamEncounter, params: Params): string {
     // FIXME: locale
-    return "A: ";
+    return 'A: ';
   }
 
   // noinspection JSUnusedLocalSymbols
   buildHomeEncounterPrefix(encounter: TeamEncounter, params: Params): string {
     // FIXME: locale
-    return "Heimspiel: ";
+    return 'Heimspiel: ';
   }
 
   // noinspection JSUnusedLocalSymbols
   buildGuestEncounterPrefix(encounter: TeamEncounter, params: Params): string {
     // FIXME: locale
-    return "Auswärtsspiel: ";
+    return 'Auswärtsspiel: ';
   }
 
   buildScheduleName(params: Params): string {
@@ -98,7 +99,7 @@ export class FieldBulder {
   }
 
   buildEncounterId(encounter: TeamEncounter, params: Params): string {
-    return params.season.id + ":" + encounter.homeTeamId + "---" + encounter.guestTeamId;
+    return params.season.id + ':' + encounter.homeTeamId + '---' + encounter.guestTeamId;
   }
 
   // noinspection JSUnusedLocalSymbols
@@ -122,7 +123,7 @@ export class FieldBulder {
   }
 
   private buildEncounterSummaryPrefix(encounter: TeamEncounter, params: Params) {
-    let prefix = "";
+    let prefix = '';
     if (params.homeTeamIDs.length !== 0) {
       prefix = this.isHomeEncounter(encounter, params)
         ? this.buildHomeEncounterShortPrefix(encounter, params)
@@ -143,7 +144,7 @@ export class FieldBulder {
   }
 
   private buildEncounterDescriptionPrefix(encounter: TeamEncounter, params: Params) {
-    let prefix = "";
+    let prefix = '';
     if (params.homeTeamIDs.length !== 0) {
       prefix = this.isHomeEncounter(encounter, params)
         ? this.buildHomeEncounterPrefix(encounter, params)
@@ -155,7 +156,7 @@ export class FieldBulder {
   buildEncounterLocation(encounter: TeamEncounter, params: Params): string | undefined {
     const location = params.season.locations[encounter.locationId];
     if (location) {
-      return location.name + ", " + location.address.lines.join(", ");
+      return location.name + ', ' + location.address.lines.join(', ');
     } else {
       return undefined;
     }
@@ -184,9 +185,9 @@ export class PlayerCalendarService {
     const description = builder.buildScheduleDescription(params);
 
     const cal = ical({
-      domain: "myclub",
+      domain: 'myclub',
       name,
-      description
+      description,
     });
 
     const encounters = params.season.encounters

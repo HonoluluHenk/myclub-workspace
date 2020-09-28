@@ -1,7 +1,7 @@
 import {download} from '../shared/download';
 import * as cheerio from 'cheerio';
 
-const FEDERATION = 'STT';
+export const FEDERATION_STT = 'STT';
 
 export interface ClubSearchOptions {
   federation: string;
@@ -15,8 +15,7 @@ function buildClubSearchUrl(federation: string): string {
   return `https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/clubSearch?federation=${f}`;
 }
 
-export async function scrapeClubSearchOptions(): Promise<ClubSearchOptions[]> {
-  const federation = FEDERATION;
+export async function scrapeClubSearchOptions(federation: string = FEDERATION_STT): Promise<ClubSearchOptions[]> {
   const url = buildClubSearchUrl(federation);
 
   const responseText = await download(url);

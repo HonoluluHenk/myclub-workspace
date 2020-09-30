@@ -1,7 +1,65 @@
 import {Controller, Get, Header, Param} from '@nestjs/common';
-import * as ical from 'ical-generator';
+import ical from 'ical-generator';
 import {DateTime} from 'luxon';
 import {ClubSchedule, scrapeClubSchedule} from '@myclub/scraper';
+
+@Controller('schedule')
+export class ScheduleController {
+
+  @Get(':seasonStartYear/:clubId')
+  async findClubScheduleForSeason(
+    @Param('seasonStartYear') seasonStartYear: string,
+    @Param('clubId') clubId: string,
+  ) {
+    console.log('scrape:', seasonStartYear, clubId);
+    const result = await scrapeClubSchedule(
+      parseInt(seasonStartYear, 10),
+      parseInt(clubId, 10),
+    );
+    // console.log('result:', seasonStartYear, clubId, result);
+    return result;
+  }
+
+  @Get(':seasonStartYear/:clubId/:teamId')
+  async findClubScheduleForSeasonAndTeam(
+    @Param('seasonStartYear') seasonStartYear: string,
+    @Param('clubId') clubId: string,
+    @Param('teamId') teamId: string,
+  ) {
+    console.log('scrape:', seasonStartYear, clubId);
+    const result = await scrapeClubSchedule(
+      parseInt(seasonStartYear, 10),
+      parseInt(clubId, 10),
+      parseInt(teamId, 10),
+    );
+    // console.log('result:', seasonStartYear, clubId, result);
+    return result;
+  }
+
+  @Get(':seasonStartYear/:clubId/:teamId/ical/:teamName')
+  @Header('content-type', 'text/calendar')
+  @Header('content-disposition', 'attachment;filename=' + encodeURIComponent('team-schedule.ics'))
+  async findSchedulesForSeasonAsIcal(
+    @Param('seasonStartYear') seasonStartYear: string,
+    @Param('clubId') clubId: string,
+    @Param('teamId') teamId: string,
+    @Param('teamName') teamName: string,
+    // @Res() response: Response
+  ) {
+    const schedule = await scrapeClubSchedule(
+      parseInt(seasonStartYear, 10),
+      parseInt(clubId, 10),
+      parseInt(teamId, 10),
+    );
+    if (!schedule) {
+      throw new Error(`could not scrape: ${seasonStartYear}/${clubId}`);
+    }
+
+    const icalData = createIcal(`Schedule`, teamName, schedule);
+
+    return icalData;
+  }
+}
 
 function buildEncounterSummary(ts: ClubSchedule, homeTeam: string) {
   const home = ts.homeTeam === homeTeam;
@@ -47,61 +105,3 @@ function createIcal(description: string, team: string, schedule: ClubSchedule[])
   console.log('ical', result);
   return result;
 }
-
-@Controller('schedule')
-export class ScheduleController {
-  @Get(':seasonStartYear/:clubId')
-  async findClubScheduleForSeason(
-    @Param('seasonStartYear') seasonStartYear: string,
-    @Param('clubId') clubId: string,
-  ) {
-    console.log('scrape:', seasonStartYear, clubId);
-    const result = await scrapeClubSchedule(
-      parseInt(seasonStartYear, 10),
-      parseInt(clubId, 10),
-    );
-    // console.log('result:', seasonStartYear, clubId, result);
-    return result;
-  }
-
-  @Get(':seasonStartYear/:clubId/:teamId')
-  async findClubScheduleForSeasonAndTeam(
-    @Param('seasonStartYear') seasonStartYear: string,
-    @Param('clubId') clubId: string,
-    @Param('teamId') teamId: string,
-  ) {
-    console.log('scrape:', seasonStartYear, clubId);
-    const result = await scrapeClubSchedule(
-      parseInt(seasonStartYear, 10),
-      parseInt(clubId, 10),
-      parseInt(teamId, 10),
-    );
-    // console.log('result:', seasonStartYear, clubId, result);
-    return result;
-  }
-
-  @Get(':seasonStartYear/:clubId/:teamId/ical/:teamName')
-  @Header('content-type', 'text/calendar')
-  @Header('content-disposition', 'attachment;filename=' + encodeURIComponent('foo.ics'))
-  async findSchedulesForSeasonAsIcal(
-    @Param('seasonStartYear') seasonStartYear: string,
-    @Param('clubId') clubId: string,
-    @Param('teamId') teamId: string,
-    @Param('teamName') teamName: string,
-    // @Res() response: Response
-  ) {
-    const schedule = await scrapeClubSchedule(
-      parseInt(seasonStartYear, 10),
-      parseInt(clubId, 10),
-      parseInt(teamId, 10),
-    );
-    if (!schedule) {
-      throw new Error(`could not scrape: ${seasonStartYear}/${clubId}`);
-    }
-
-    const icalData = createIcal(`Schedule`, teamName, schedule);
-
-    return icalData;
-  }
-}
-

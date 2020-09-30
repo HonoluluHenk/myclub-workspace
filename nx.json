@@ -26,6 +26,9 @@
     },
     "scraper-backend": {
       "tags": []
+    },
+    "clicktt-polling": {
+      "tags": []
     }
   },
   "tasksRunnerOptions": {

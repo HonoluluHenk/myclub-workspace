@@ -296,6 +296,48 @@
           }
         }
       }
+    },
+    "clicktt-polling": {
+      "projectType": "library",
+      "root": "libs/clicktt-polling",
+      "sourceRoot": "libs/clicktt-polling/src",
+      "prefix": "myclub",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/clicktt-polling/tsconfig.lib.json",
+            "project": "libs/clicktt-polling/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/clicktt-polling/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/clicktt-polling/tsconfig.lib.json",
+              "libs/clicktt-polling/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/clicktt-polling/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/clicktt-polling/jest.config.js",
+            "tsConfig": "libs/clicktt-polling/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/clicktt-polling/src/test-setup.ts"
+          }
+        }
+      }
     }
   },
   "cli": {
@@ -310,8 +352,13 @@
     "@nrwl/angular:library": {
       "unitTestRunner": "jest"
     },
+    "@nrwl/angular:component": {
+      "changeDetection": "OnPush",
+      "style": "scss"
+    },
     "@schematics/angular:component": {
-      "changeDetection": "OnPush"
+      "changeDetection": "OnPush",
+      "style": "scss"
     }
   },
   "defaultProject": "frontend"

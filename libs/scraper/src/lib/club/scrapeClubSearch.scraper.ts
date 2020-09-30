@@ -1,21 +1,20 @@
 import {download} from '../shared/download';
 import * as cheerio from 'cheerio';
+import {Federation} from './federation.type';
 
-export const FEDERATION_STT = 'STT';
+export const FEDERATION_STT: Federation = {
+  name: 'STT',
+  rootURL: 'https://www.click-tt.ch',
+};
 
 export interface ClubSearchOptions {
-  federation: string;
+  federation: Federation;
   regionName: string;
   searchURL: string;
   searchPattern: string,
 }
 
-function buildClubSearchUrl(federation: string): string {
-  const f = encodeURIComponent(federation);
-  return `https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/clubSearch?federation=${f}`;
-}
-
-export async function scrapeClubSearchOptions(federation: string = FEDERATION_STT): Promise<ClubSearchOptions[]> {
+export async function scrapeClubSearchOptions(federation: Federation = FEDERATION_STT): Promise<ClubSearchOptions[]> {
   const url = buildClubSearchUrl(federation);
 
   const responseText = await download(url);
@@ -23,7 +22,12 @@ export async function scrapeClubSearchOptions(federation: string = FEDERATION_ST
   return scrapeFromHTML(federation, responseText);
 }
 
-function scrapeFromHTML(federation: string, html: string): ClubSearchOptions[] {
+function buildClubSearchUrl(federation: Federation): string {
+  const f = encodeURIComponent(federation.name);
+  return `${federation.rootURL}/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/clubSearch?federation=${f}`;
+}
+
+function scrapeFromHTML(federation: Federation, html: string): ClubSearchOptions[] {
   const $ = cheerio.load(html);
 
   const result = $('form[class="search-query"] > ul')
@@ -38,7 +42,7 @@ function scrapeFromHTML(federation: string, html: string): ClubSearchOptions[] {
   return result;
 }
 
-function scrapeEntry(federation: string, ulElem: CheerioElement): ClubSearchOptions[] {
+function scrapeEntry(federation: Federation, ulElem: CheerioElement): ClubSearchOptions[] {
   const result: ClubSearchOptions[] = [];
 
   // a column consists of a sequence of h2 (the leage type text) and ul>li (the groups within then league type).
@@ -48,7 +52,7 @@ function scrapeEntry(federation: string, ulElem: CheerioElement): ClubSearchOpti
     const $ = cheerio.load(entries[i]);
 
     const $a = $('a');
-    const searchURL = $a.attr('href') || '';
+    const searchURL = federation.rootURL + $a.attr('href') || '';
     const regionName = $a.text();
     const searchPattern = parseSearchPatternFromURL(searchURL);
 
@@ -66,7 +70,7 @@ function scrapeEntry(federation: string, ulElem: CheerioElement): ClubSearchOpti
 function parseSearchPatternFromURL(searchURL: string): string {
   // example:
   // /cgi-bin/WebObjects/nuLigaTTCH.woa/wa/clubSearch?searchPattern=CH.01&federation=STT&regionName=Association+Genevoise+de+Tennis+de+Table&federations=STT
-  const matches = /searchPattern=(.*?)&|$/.exec(searchURL);
+  const matches = /searchPattern=(.*?)(&|$)/.exec(searchURL);
   if (!matches) {
     return '';
   }

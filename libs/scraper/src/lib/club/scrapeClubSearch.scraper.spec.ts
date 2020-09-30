@@ -4,7 +4,7 @@ import {ClubSearchOptions, scrapeClubSearchOptions} from './scrapeClubSearch.scr
 describe('scrapeClubSearch', () => {
 
   describe('clubSearch sampledata', () => {
-    const SAMPLEDATA_PATH = 'clubs/clubSearch.html';
+    const SAMPLEDATA_PATH = 'club/clubSearch.html';
     let actual: ClubSearchOptions[];
 
     beforeEach(async () => {

@@ -1,17 +1,21 @@
 import {mockFetchSampledata} from '../../test-helpers';
 import {ClubListEntry, scrapeClubSearchList} from './scrapeClubSearchList.scraper';
+import {FEDERATION_STT} from './scrapeClubSearch.scraper';
 
 describe('scrapeClubSearchList', () => {
 
   describe('clubSearch list sampledata', () => {
-    const SAMPLEDATA_PATH = 'clubs/clubSearch-list.html';
+    const SAMPLEDATA_PATH = 'club/clubSearch-list.html';
     let actual: ClubListEntry[];
 
     beforeEach(async () => {
       mockFetchSampledata(SAMPLEDATA_PATH);
 
       actual = await scrapeClubSearchList(
-        'https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/clubSearch?searchPattern=CH.05&federation=STT&regionName=Mittell%C3%A4ndischer+Tischtennisverband&federations=STT',
+        {
+          federation: FEDERATION_STT,
+          searchURL: 'https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/clubSearch?searchPattern=CH.05&federation=STT&regionName=Mittell%C3%A4ndischer+Tischtennisverband&federations=STT',
+        },
       );
     });
 

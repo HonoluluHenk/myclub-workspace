@@ -1,4 +1,6 @@
 import {Schema, SchemaOptions, SchemaType, SchemaTypeOpts} from 'mongoose';
+// FIXME: buildable modules cannot import non-buildable modules
+// tslint:disable-next-line:nx-enforce-module-boundaries
 import {NoInfer} from '../../../myclub-shared/src/lib/util';
 
 type Definition<T extends object = never> = NoInfer<T, {

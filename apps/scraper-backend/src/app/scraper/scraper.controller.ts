@@ -1,24 +1,27 @@
 import {Controller, Get} from '@nestjs/common';
 import {
   ClubListEntry,
+  ClubTeam,
   Federation,
   FEDERATION_STT,
   scrapeClubSearchList,
   scrapeClubSearchOptions,
-} from '../../../../../libs/scraper/src/lib/club';
+  scrapeClubTeams,
+} from '@myclub/scraper';
 import {flatMap} from 'lodash';
-import {ClubTeam, scrapeClubTeams} from '../../../../../libs/scraper/src/lib/club/scrapeClubTeams';
+import PromisePool from 'es6-promise-pool';
 
 interface ExtendedClubListEntry extends ClubListEntry {
   teams: ClubTeam[]
 }
 
-async function scrapeExtendedClubListEntry(c: ClubListEntry, federation: Federation): Promise<ExtendedClubListEntry> {
+async function scrapeExtendedClubListEntry(c: ClubListEntry, federation: Federation, result: ExtendedClubListEntry[]): Promise<void> {
+  // console.debug('scrapeExtended: ', c.clubId);
   const teams = await scrapeClubTeams(c.clubId, federation);
-  return {
+  result.push({
     ...c,
     teams,
-  };
+  });
 }
 
 @Controller('scraper')
@@ -32,10 +35,18 @@ export class ScraperController {
     const clubLists = await Promise.all(clubSearchOptions.map(cso => scrapeClubSearchList(cso)));
     const clubs = flatMap<ClubListEntry>(clubLists);
 
-    const result = [];
-    for (const club of clubs) {
-      result.push(await scrapeExtendedClubListEntry(club, federation));
-    }
+    const result: ExtendedClubListEntry[] = [];
+
+    const generatePromises = function* () {
+      for (let i = 1; i < clubs.length; i++) {
+        yield scrapeExtendedClubListEntry(clubs[i], federation, result);
+      }
+      return 'Finished!';
+    };
+
+    const iter = generatePromises() as any;
+    const pool = new PromisePool<ExtendedClubListEntry[]>(iter, 5);
+    await pool.start();
 
     return result;
   }
